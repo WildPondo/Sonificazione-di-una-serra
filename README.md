@@ -4,8 +4,7 @@
 
 ## Abstract
 
-> Brief but complete description of the project.  
-> Describe what this project is about (e.g., digital musical instrument (DMI), software tool, study, dataset).  
+Ciao Ale.
 
 ---
 
