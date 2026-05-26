@@ -1,0 +1,32 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: MTR Template
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Alessandro
+    name-particle: A
+    family-names: Fiordelmondo
+    email: fiordelmondo@dei.unipd.it
+    affiliation: CSC Padova
+    orcid: 'https://orcid.org/0000-0002-4670-5298'
+  - given-names: Matteo
+    name-particle: M
+    family-names: Spanio
+    email: spanio@dei.unipd.it
+    affiliation: CSC Padova
+    orcid: 'https://orcid.org/0000-0002-2436-7208'
+repository-code: 'https://github.com/CSCPadova/MTR-template'
+abstract: >-
+  The Music Technology Research template is a repository
+  template for creating a new repository related to a
+  research project in the field of music technology.
+keywords:
+  - Music Technology Research
+  - Repository
+  - Template
+license: MIT
