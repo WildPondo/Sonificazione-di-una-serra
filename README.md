@@ -3,8 +3,9 @@
 ---
 
 ## Abstract
+Sebbene la visualizzazione grafica tradicional offra un'immediata lettura dei dati ambientali, essa vincola l'utente a un monitoraggio visivo costante e diretto. Prendendo come riferimento concettuale l'efficacia e l'immediatezza acustica di dispositivi come il contatore Geiger, questo lavoro esplora la sonificazione come soluzione per facilitare la comprensione dei mutamenti ambientali quando non è possibile l'interazione visiva. Il sistema si basa su una rete di sensori hardware per la raccolta dei parametri in tempo reale; i dati estratti vengono successivamente veicolati e processati attraverso software dedicati alla programmazione audio e alla sintesi sonora generativa. Il risultato è la creazione di una tessitura acustica complessa e in continuo mutamento, in cui le variazioni timbriche e le tecniche di sintesi rispecchiano fedelmente i micromutamenti e le relazioni interne dei singoli dati a disposizione. Il progetto si configura, in ultima analisi, come un'installazione sonora *site-specific*: un ambiente acustico a livello artistico capace di offrire un'esperienza estetica immersiva e, al contempo, un riconoscimento acustico immediato delle mutazioni del luogo in cui il sistema è allocato.
 
-Ciao Ale.
+**Keywords:** Sonificazione, Installazione site-specific, Sintesi generativa, Monitoraggio ambientale, Percezione acustica.
 
 ---
 
