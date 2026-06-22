@@ -14,7 +14,7 @@ Sebbene la visualizzazione grafica tradizionale offra un'immediata lettura dei d
 ### 1. Prototipo Hardware & Cloud Infrastructure
 Il sistema si avvale di una stazione di rilevamento ambientale basata su microcontrollore Arduino. I dati analogici e digitali estratti dai sensori vengono inviati in tempo reale a un database cloud Firebase (Realtime Database) per la storicizzazione e l'accessibilità remota.
 
-![Prototipo Hardware](documentation/images/hardware.jpg)
+![Prototipo Hardware](documentation/images/hardware.jpeg)
 *Fig. 1: Prototipo hardware del sistema di rilevamento su breadboard.*
 
 ![Dashboard Firebase](documentation/images/firebase.png)
@@ -25,7 +25,7 @@ Il sistema si avvale di una stazione di rilevamento ambientale basata su microco
 ### 2. Architettura Software Principale (Max/MSP)
 Il cuore del sistema è sviluppato in Max/MSP. La patch principale effettua richieste HTTP GET cicliche tramite l'oggetto `maxurl` per ottenere il payload JSON da Firebase, ne esegue il parsing (`dict.unpack`) e smista i singoli parametri verso sotto-moduli dedicati alla sintesi e al mapping MIDI. Inoltre, un'istanza `node.script` automatizza l'avvio del software di sintesi granulare esterno.
 
-![Patch Principale Max/MSP](documentation/images/max-main-patch.jpg)
+![Patch Principale Max/MSP](documentation/images/max-main-patch.png)
 *Fig. 3: Patch principale di Max/MSP con logica di ricezione, deserializzazione JSON e routing del segnale.*
 
 ---
