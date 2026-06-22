@@ -93,27 +93,63 @@ Example:
 
 ## Instructions
 
-> Explain **how to install, run, or build** the project.  
-> This could include:
+Per configurare ed eseguire correttamente l'intero ecosistema sul proprio computer, seguire i passaggi descritti di seguito.
 
-- Installation steps
-- Compilation or setup instructions
-- Building or assembling (for hardware/instruments)
+### 1. Configurazione Hardware (Arduino)
+1. Collegare i sensori e le relative alimentazioni controllate alla scheda Arduino Uno R4 WiFi seguendo lo schema di mappatura dei pin reale estratto dal codice sorgente:
 
-Example:
-1. Clone the repository:
-```bash
-   git clone https://github.com/yourusername/yourproject.git
-```
-2. Install dependencies:
-```bash
-   pip install -r requirements.txt
-```
+| Componente / Sensore | Tipo di Segnale / Funzione | Pin Arduino |
+| :--- | :--- | :--- |
+| **Umidità dell'Aria / Temperatura (DHT11)** | Digitale (Dati) | `D2` |
+| **Umidità del Terreno (Igrometro)** | Analogico (Lettura) | `A0` |
+| **Qualità dell'Aria (MQ135)** | Analogico (Lettura) | `A1` |
+| **Livello di Luce (Fotoresistenza)** | Analogico (Lettura) | `A2` |
+| **Livello di Pioggia (Quantitativo)** | Analogico (Lettura) | `A3` |
+| **Soglia Pioggia (Presenza/Assenza)** | Digitale (Lettura ON/OFF) | `D4` |
+| **Alimentazione Switch Terreno (VCC)** | OUTPUT Digitale (Protezione Elettrolisi) | `D7` |
+| **Alimentazione Switch Pioggia (VCC)** | OUTPUT Digitale (Protezione Ossidazione) | `D5` |
 
-### Running
-```bash
-python3 main.py
-```
+2. Aprire la cartella `/hardware/` che racchiude l'ambiente di sviluppo dell'Arduino IDE.
+3. Aprire il file `secrets.h` e configurare le stringhe relative alle credenziali della propria rete Wi-Fi.
+4. Connettere la scheda Arduino al computer tramite USB e caricare lo sketch principale (`.ino`) tramite Arduino IDE.
+
+### 2. Configurazione Cloud (Firebase Realtime Database)
+Il sistema richiede un'istanza attiva di Firebase per la trasmissione e la ricezione dei dati ambientali.
+1. Creare un progetto sulla console di Firebase e attivare un **Realtime Database**.
+2. Nella scheda **Rules** (Regole) del database, incollare il seguente codice JSON per disabilitare momentaneamente le restrizioni di autenticazione e permettere i test di lettura/scrittura in modalità pubblica:
+   ```json
+   {
+     "rules": {
+       ".read": true,
+       ".write": true
+     }
+   }
+
+3. Il firmware provvederà a creare autonomamente un nodo fisso principale chiamato data per lo streaming realtime a 2 secondi (utilizzato da Max/MSP) e un nodo storico/ organizzato in ordine cronologico con auto-pulizia automatica a 8 giorni per i report a lungo termine.
+
+4. Recuperare l'URL del database e il relativo Token di autenticazione e inserirli sia nel file secrets.h di Arduino prima del flash, sia all'interno del modulo di ricezione web della patch di Max/MSP.
+
+### 3. Configurazione del Virtual MIDI Routing
+Il sistema necessita di un canale MIDI virtuale per far comunicare Max/MSP con il motore di sintesi esterno.
+
+1. Se non è presente sul sistema, installare loopMIDI (i file di installazione sono reperibili nella cartella /software/).
+
+2. Aprire loopMIDI e creare una nuova porta virtuale rinominandola esattamente: Granulatore.
+
+### 4. Configurazione dell'Ambiente Audio e Avvio (Max/MSP)
+1. Assicurarsi di aver installato Emission Control 2 (i file di installazione esecutivi e i preset si trovano all'interno di /software/Emission Control/).
+
+2. Aprire la patch principale di Max/MSP situata nella directory /software/MaxMSP/ (.maxpat).
+
+3. Controllo propedeutico dei percorsi (Path Linking): Prima di avviare il sistema, verificare all'interno dello script Node della patch che i riferimenti alle cartelle locali del computer siano corretti e aggiornati. Se i percorsi assoluti differiscono o contengono stringhe errate, lo script genererà un blocco di sistema non trovando i riferimenti dell'eseguibile.
+
+4. All'apertura della patch, l'oggetto node.script interagirà con il sistema operativo per automatizzare l'inizializzazione dei processi e l'avvio in background di Emission Control 2.
+
+5. Fallback di Avvio Manuale: Qualora l'automatismo dello script dovesse fallire o bloccarsi a causa di restrizioni sui permessi amministrativi del sistema operativo, basterà cliccare manualmente sul rispettivo riquadro di comando (messaggio di avvio forzato) presente sulla GUI della patch per lanciare istantaneamente Emission Control 2.
+
+6. Verificare che l'oggetto MIDI in uscita dalla patch sia indirizzato sulla porta virtuale Granulatore creata precedentemente.
+
+7. Attivare il motore audio di Max/MSP (dac~) per iniziare la ricezione dei flussi JSON e dare inizio alla sonificazione generativa.
 
 ### Building the Instrument
 See [Instruction Manual](Documentation/Instructions/BUILD.md) for full assembly instructions.
