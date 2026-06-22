@@ -49,7 +49,7 @@ I dati sulla qualità dell'aria controllano i parametri di Sample Rate e Noise a
 *Fig. 5: Sub-patch di degradazione del segnale audio tramite controllo dei parametri del Bitcrusher.*
 
 #### C. Umidità dell'Aria (`p Filtro da umidità dell'aria`)
-L'umidità atmosferica agisce direttamente sulla frequenza di taglio e sul fattore di merito (Q) di un filtro passa-banda (`biquad~`) applicato a un generatore di rumore rosa interno (`pink~`).
+L'umidità atmosferica agisce direttamente sulla frequenza di taglio e sul fattore di guadagno (Q) di un filtro passa-banda (`biquad~`) applicato a un generatore di rumore rosa interno (`pink~`).
 
 ![Sotto-patch Umidità dell'Aria](documentation/images/max-filtrorumorerosa-airhumid.png)
 *Fig. 6: Sub-patch di filtraggio selettivo del rumore rosa basato sull'umidità dell'aria.*
