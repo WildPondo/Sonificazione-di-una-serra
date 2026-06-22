@@ -72,22 +72,30 @@ Il flusso macrostrutturalmente generato da Max/MSP e i dati MIDI di controllo at
 
 ## Technical Notes
 
-> Short explanation of **how the project works**.  
-> Include:
+L'architettura del sistema si sviluppa come un ecosistema IoT (Internet of Things) applicato al Sound Design generativo, articolandosi su tre macro-livelli interconnessi: l'estrazione dei dati ambientali, l'infrastruttura di rete cloud e l'ambiente di elaborazione e sintesi sonora.
 
-- Overview of architecture, technologies used (e.g., Python, Max/MSP, Arduino, etc.)
-- Link to key repository folders (e.g., `src/`, `hardware/`, `docs/`)
-- Any **dependencies** or **external libraries** (list them with versions if necessary)
+### Infrastruttura e Flusso dei Dati
+1. **Raccolta Hardware (Edge):** Un microcontrollore Arduino acquisisce i dati in tempo reale dai sensori ambientali collocati nella serra. Per limitare i fenomeni di ossidazione e corrosione precoce dovuti all'elettrolisi, i sensori igrometrici e di pioggia vengono alimentati elettricamente a impulsi (VCC controllato da pin digitali) esclusivamente durante la finestra di lettura di 30 millisecondi.
+2. **Cloud Datastore (Firebase):** I dati raccolti dall'hardware vengono spediti in rete e memorizzati su un database Firebase in formato JSON (Realtime Database). Il firmware gestisce due flussi paralleli: uno streaming in tempo reale ad alta frequenza (ogni 2 secondi) e una routine di storicizzazione ciclica (ogni 20 minuti) dotata di un algoritmo auto-pulente basato sulla libreria NTP che rimuove automaticamente i log più vecchi di 8 giorni.
+3. **Elaborazione e Routing (Max/MSP):** Tramite chiamate HTTP GET cicliche (`maxurl`), Max/MSP interroga il database cloud, esegue il parsing del payload JSON (`dict.unpack`) e mappa i parametri numerici su algoritmi di sintesi interna o su flussi di controllo MIDI virtuali.
+4. **Motore Microsound Ext (Emission Control 2):** I messaggi di Control Change generati e scalati da Max vengono instradati tramite la porta virtuale di loopMIDI verso *Emission Control 2*, pilotando i parametri della sintesi granulare in tempo reale.
 
-Example:
-```markdown
-- Programming Language: Python 3.11
-- Main dependencies: numpy, pyo, OpenCV
-- Repository Structure:
-  - `/src/` – main code
-  - `/hardware/` – schematics and designs
-  - `/docs/` – documentation and instruction manuals
-```
+### Tecnologie Utilizzate
+- **Hardware:** Arduino Uno R4 WiFi + Sensori ambientali (DHT11, MQ135, fotoresistenza, pioggia, igrometro).
+- **Infrastruttura Cloud:** Firebase Realtime Database (Google) + Libreria NTPClient per la sincronizzazione temporale.
+- **Ambiente di Sviluppo Audio:** Max/MSP 8 (con moduli `node.script` per l'automazione dei processi di sistema).
+- **Virtual MIDI Routing:** loopMIDI (creazione e gestione delle porte MIDI virtuali).
+- **Software di Sintesi Esterna:** Emission Control 2 (EC2) di Curtis Roads.
+
+### Allocazione delle Risorse nella Repository
+I file del progetto sono distribuiti secondo la seguente struttura ad albero:
+- `/hardware/` – Intera cartella di sviluppo dell'Arduino IDE, contenente lo sketch principale (`.ino`) e il file di configurazione delle credenziali di rete (`secrets.h`).
+- `/software/` – Directory dedicata agli applicativi desktop:
+  - `/MaxMSP/` – Patch principale di Max (`.maxpat`) e script JavaScript integrati.
+  - `/Emission Control/` – File esecutivi di installazione del software EC2 e relativi preset.
+  - File esecutivi di installazione per loopMIDI.
+- `/documentation/` – Documentazione teorica del progetto e sottocartella `/images/` contenente i media dell'installazione.
+- `/files/` – Destinata a ospitare campioni audio esterni, preset addizionali o file JSON per i test offline.
 
 ---
 
@@ -117,7 +125,7 @@ Per configurare ed eseguire correttamente l'intero ecosistema sul proprio comput
 Il sistema richiede un'istanza attiva di Firebase per la trasmissione e la ricezione dei dati ambientali.
 1. Creare un progetto sulla console di Firebase e attivare un **Realtime Database**.
 2. Nella scheda **Rules** (Regole) del database, incollare il seguente codice JSON per disabilitare momentaneamente le restrizioni di autenticazione e permettere i test di lettura/scrittura in modalità pubblica:
-   ```json
+
    {
      "rules": {
        ".read": true,
@@ -152,9 +160,8 @@ Il sistema necessita di un canale MIDI virtuale per far comunicare Max/MSP con i
 7. Attivare il motore audio di Max/MSP (dac~) per iniziare la ricezione dei flussi JSON e dare inizio alla sonificazione generativa.
 
 ### Building the Instrument
-See [Instruction Manual](Documentation/Instructions/BUILD.md) for full assembly instructions.
-```
+Vedere la tabella di mappatura dei pin integrata nella sezione precedente per il cablaggio dei sensori sulla breadboard di Arduino Uno R4 WiFi. 
 
-If the instructions are too long ➔ **Link to separate file** (e.g., inside `Documentation/Instructions/` folder).
+Per una descrizione dettagliata del montaggio fisico dei sensori all'interno della struttura della serra, fare riferimento alla documentazione presente nella cartella `/documentation/`.
 
 ---
