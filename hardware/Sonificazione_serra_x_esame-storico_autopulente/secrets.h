@@ -5,6 +5,6 @@
 //#define WIFI_SSID     "IlNomeDelTuoWifi"
 //#define WIFI_PASSWORD ""
 
-#define REFERENCE_URL "https://progetto-serra-default-rtdb.europe-west1.firebasedatabase.app/"
+#define REFERENCE_URL "IlLinkDelTuoDatabaseOnline"
 
-#define AUTH_TOKEN "YqYGRpJWWavD8rWjXJKt3YiA1TBiBAinnwpXhI3D"
+#define AUTH_TOKEN "IlTuoTokenDiAutenticazione"
