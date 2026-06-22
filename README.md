@@ -127,7 +127,7 @@ Il sistema richiede un'istanza attiva di Firebase per la trasmissione e la ricez
 
 3. Il firmware provvederà a creare autonomamente un nodo fisso principale chiamato data per lo streaming realtime a 2 secondi (utilizzato da Max/MSP) e un nodo storico/ organizzato in ordine cronologico con auto-pulizia automatica a 8 giorni per i report a lungo termine.
 
-4. Recuperare l'URL del database e il relativo Token di autenticazione e inserirli sia nel file secrets.h di Arduino prima del flash, sia all'interno del modulo di ricezione web della patch di Max/MSP.
+4. Recuperare l'URL del database e il relativo Token di autenticazione e inserirli sia nel file secrets.h di Arduino, sia all'interno del modulo di ricezione web della patch di Max/MSP.
 
 ### 3. Configurazione del Virtual MIDI Routing
 Il sistema necessita di un canale MIDI virtuale per far comunicare Max/MSP con il motore di sintesi esterno.
