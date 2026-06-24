@@ -26,7 +26,7 @@ Il sistema si avvale di una stazione di rilevamento ambientale basata su microco
 Il cuore del sistema è sviluppato in Max/MSP. La patch principale effettua richieste HTTP GET cicliche tramite l'oggetto `maxurl` per ottenere il payload JSON da Firebase, ne esegue il parsing (`dict.unpack`) e smista i singoli parametri verso sotto-moduli dedicati alla sintesi e al mapping MIDI. Inoltre, un'istanza `node.script` automatizza l'avvio del software di sintesi granulare esterno.
 
 ![Patch Principale Max/MSP](documentation/images/max-presentationmode.png)
-![Patch Main MaxMSP](documentation/images/max-main-2.png)
+![Patch Main MaxMSP](documentation/images/max-main-2.png)<br>
 *Fig. 3: Patch principale di Max/MSP con logica di ricezione, deserializzazione JSON e routing del segnale.*
 
 ---
@@ -40,7 +40,7 @@ L'umidità del terreno pilota un generatore di click basato su impulsi e risonat
   <img src="documentation/images/max-cicksystem-groundhumid.png" width="45%" />
   <img src="documentation/images/max-cicksystem-delay-groundhumid.png" width="25%" />
   <img src="documentation/images/max-cicksystem-drywet-groundhumid.png" width="25%" />
-</p>
+</p><br>
 *Fig. 4: Modulo di generazione click, sub-patch di gestione del delay e del crossfade Dry/Wet legati all'umidità del terreno.*
 
 #### B. Qualità dell'Aria (`p Degrade da qualità dell'aria`)
