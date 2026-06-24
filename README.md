@@ -14,10 +14,10 @@ Sebbene la visualizzazione grafica tradizionale offra un'immediata lettura dei d
 ### 1. Prototipo Hardware & Cloud Infrastructure
 Il sistema si avvale di una stazione di rilevamento ambientale basata su microcontrollore Arduino. I dati analogici e digitali estratti dai sensori vengono inviati in tempo reale a un database cloud Firebase (Realtime Database) per la storicizzazione e l'accessibilità remota.
 
-![Prototipo Hardware](documentation/images/hardware.jpeg)
+![Prototipo Hardware](documentation/images/hardware.jpeg)<br>
 *Fig. 1: Prototipo hardware del sistema di rilevamento su breadboard.*
 
-![Dashboard Firebase](documentation/images/firebase.png)
+![Dashboard Firebase](documentation/images/firebase.png)<br>
 *Fig. 2: Struttura dei dati JSON (payload) in tempo reale e storico delle rilevazioni su Firebase.*
 
 ---
@@ -52,13 +52,13 @@ I dati sulla qualità dell'aria controllano i parametri di Sample Rate e Noise a
 #### C. Umidità dell'Aria (`p Filtro da umidità dell'aria`)
 L'umidità atmosferica agisce direttamente sulla frequenza di taglio e sul fattore di guadagno (Q) di un filtro passa-banda (`biquad~`) applicato a un generatore di rumore rosa interno (`pink~`).
 
-![Sotto-patch Umidità dell'Aria](documentation/images/max-filtrorumorerosa-airhumid.png)
+![Sotto-patch Umidità dell'Aria](documentation/images/max-filtrorumorerosa-airhumid.png)<br>
 *Fig. 6: Sub-patch di filtraggio selettivo del rumore rosa basato sull'umidità dell'aria.*
 
 #### D. Livello di Pioggia e Controllo MIDI Esterno (`p Invio Midi a EC2`)
 Il livello di pioggia viene scalato in tempo reale nel range standard 0-127 e convertito in messaggi di Control Change (CC) tramite pacchetti MIDI formattati (`pack 176 10 0`), indirizzati direttamente a Emission Control 2 tramite la porta virtuale di loopMIDI.
 
-![Controllo MIDI Livello Pioggia](documentation/images/max-midicontrol-rainlvl.png)
+![Controllo MIDI Livello Pioggia](documentation/images/max-midicontrol-rainlvl.png)<br>
 *Fig. 7: Sotto-patch per la generazione e l'invio dei messaggi MIDI di controllo.*
 
 ---
@@ -66,7 +66,7 @@ Il livello di pioggia viene scalato in tempo reale nel range standard 0-127 e co
 ### 4. Motore di Sintesi Granulare (Emission Control 2)
 Il flusso macrostrutturalmente generato da Max/MSP e i dati MIDI di controllo atterrano su *Emission Control 2* di Curtis Roads. Qui vanno a modulare i parametri microsound (come Grain Rate, Asynchronicity, Duration) per generare la tessitura acustica complessa e in continuo mutamento dell'installazione.
 
-![Interfaccia Emission Control 2](documentation/images/emission-controll-ec2.png)
+![Interfaccia Emission Control 2](documentation/images/emission-controll-ec2.png)<br>
 *Fig. 8: Schermata di controllo dei granuli e dei modulatori in Emission Control 2.*
 
 ---
