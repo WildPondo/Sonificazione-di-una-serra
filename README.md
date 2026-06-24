@@ -46,8 +46,7 @@ L'umidità del terreno pilota un generatore di click basato su impulsi e risonat
 #### B. Qualità dell'Aria (`p Degrade da qualità dell'aria`)
 I dati sulla qualità dell'aria controllano i parametri di Sample Rate e Noise applicati a un distorsore digitale (Bitcrusher TAL), degradando lo spettro armonico in base alla purezza dell'ambiente.
 
-![Sotto-patch Qualità dell'Aria](documentation/images/max-degrade-airqual.png)
-
+![Sotto-patch Qualità dell'Aria](documentation/images/max-degrade-airqual.png)<br>
 *Fig. 5: Sub-patch di degradazione del segnale audio tramite controllo dei parametri del Bitcrusher.*
 
 #### C. Umidità dell'Aria (`p Filtro da umidità dell'aria`)
